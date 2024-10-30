@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    route.openshift.io/termination: "edge"  # For TLS termination
+spec:
+  rules:
+  - host: example.apps.your-cluster.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: example-service
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - example.apps.your-cluster.com
