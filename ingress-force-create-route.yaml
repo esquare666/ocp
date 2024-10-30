@@ -6,6 +6,8 @@ metadata:
     route.openshift.io/termination: "edge"  # Important for TLS
     # Add this annotation if you want to force route creation
     router.openshift.io/override-domains: "true"
+    kubernetes.io/ingress.class: "openshift-default"
+    route.openshift.io/termination: "edge"
 spec:
   tls:
   - hosts:
@@ -21,3 +23,5 @@ spec:
             name: example-service
             port:
               number: 8080
+
+# oc label namespace your-namespace router=default
