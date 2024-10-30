@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    route.openshift.io/termination: "edge"  # Important for TLS
+    # Add this annotation if you want to force route creation
+    router.openshift.io/override-domains: "true"
+spec:
+  tls:
+  - hosts:
+    - example.apps.example.com
+  rules:
+  - host: example.apps.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: example-service
+            port:
+              number: 8080
